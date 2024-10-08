@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-// types.ts
 export interface DataItem {
     page: number;
     years: number[];
@@ -38,6 +38,7 @@ const initialState = [
             },
         ],
         isActive: false,
+        id: crypto.randomUUID(),
     },
     {
         page: 2,
@@ -74,6 +75,7 @@ const initialState = [
             },
         ],
         isActive: false,
+        id: crypto.randomUUID(),
     },
     {
         page: 3,
@@ -110,6 +112,7 @@ const initialState = [
             },
         ],
         isActive: false,
+        id: crypto.randomUUID(),
     },
     {
         page: 4,
@@ -146,6 +149,7 @@ const initialState = [
             },
         ],
         isActive: false,
+        id: crypto.randomUUID(),
     },
     {
         page: 5,
@@ -191,6 +195,7 @@ const initialState = [
                 id: crypto.randomUUID(),
             },
         ],
+        id: crypto.randomUUID(),
         isActive: false,
     },
     {
@@ -227,6 +232,7 @@ const initialState = [
                 id: crypto.randomUUID(),
             },
         ],
+        id: crypto.randomUUID(),
         isActive: true,
     },
 ];
@@ -234,7 +240,20 @@ const initialState = [
 const dataSlice = createSlice({
     name: 'data',
     initialState,
-    reducers: {},
+    reducers: {
+        setPage: (state, action: PayloadAction<number>) => {
+            const currentActive = state.find(element => element.isActive);
+            const willActive = state.find(
+                element => element.page === action.payload,
+            );
+
+            if (currentActive && willActive) {
+                currentActive.isActive = false;
+                willActive.isActive = true;
+            }
+        },
+    },
 });
 
+export const { setPage } = dataSlice.actions;
 export default dataSlice.reducer;
