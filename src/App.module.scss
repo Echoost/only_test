@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'PTSans';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/src/assets/fonts/PTSans-Regular.ttf);
+}
+@font-face {
+    font-family: 'PTSans';
+    font-style: normal;
+    font-weight: 700;
+    src: url(/src/assets/fonts/PTSans-Bold.ttf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PTSans';
+}
+
+.border {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.wrapper {
+    position: relative;
+    grid-column: span 8 / span 8;
+    grid-row: span 6 / span 6;
+    grid-column-start: 3;
+    border-left: 1px solid #e2e7f1;
+    border-right: 1px solid #e2e7f1;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.container {
+    padding: 0 40px 0 80px;
+    display: flex;
+    flex-direction: column;
+    height: 83%;
+}
+
+.header {
+    display: flex;
+    gap: 78px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 56px;
+    width: 350px;
+    color: rgba(66, 86, 122, 1);
+    margin-top: 170px;
+    flex: 3;
+}
+
+.divider {
+    position: absolute;
+    left: -3px;
+    top: 170px;
+    height: 120px;
+    width: 5px;
+    background: linear-gradient(
+        180deg,
+        rgba(56, 119, 238, 1) 20%,
+        rgba(239, 93, 168, 1) 70%
+    );
+}
+
+.timeline {
+    text-align: center;
+    margin: 20px;
+    position: relative;
+}
+
+.circle-container {
+    position: relative;
+    width: 300px; /* Ширина контейнера */
+    height: 300px; /* Высота контейнера */
+    margin: 0 auto; /* Центрирование */
+}
+
+.line {
+    position: absolute;
+    background-color: #e2e7f1; /* Цвет линий */
+    z-index: 2;
+}
+
+.vertical {
+    top: 0;
+    width: 1px; /* Ширина вертикальной линии */
+    height: 100%;
+    left: 50%;
+}
+
+.horizontal {
+    height: 1px; /* Высота горизонтальной линии */
+    width: 100%;
+    top: 50%;
+}
+
+.events {
+    margin-top: 20px;
+}

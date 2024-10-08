@@ -2,7 +2,7 @@ import { ModuleOptions } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BuildOptions } from './types/types';
 import ReactRefreshTypeScript from 'react-refresh-typescript';
-
+import path from 'path';
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development';
 
@@ -34,22 +34,19 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         ],
     };
 
-    const cssLoaderWithModules = {
-        loader: 'css-loader',
-        options: {
-            modules: {
-                localIdentName: isDev
-                    ? '[path][name]__[local]'
-                    : '[hash:base64:8]',
-            },
-        },
+    const cssLoader = {
+        test: /\.css$/i,
+        use: [
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+        ],
     };
 
     const scssLoader = {
         test: /\.s[ac]ss$/i,
         use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            cssLoaderWithModules,
+            'css-loader',
             'sass-loader',
         ],
     };
@@ -72,5 +69,10 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         ],
     };
 
-    return [assetLoader, scssLoader, tsLoader, svgrLoader];
+    return [
+        assetLoader,
+        {
+            oneOf: [cssLoader, scssLoader, tsLoader, svgrLoader],
+        },
+    ];
 }

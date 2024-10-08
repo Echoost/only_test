@@ -1,0 +1,68 @@
+@use 'sass:math'; // Подключаем модуль math для использования функции деления
+
+$circle-radius: 265px; // Радиус круга (половина ширины круга)
+$dot-count: 6; // Количество точек
+
+.circle {
+    position: relative;
+    width: 530px; // Ширина круга
+    height: 530px; // Высота круга
+    background-color: transparent; // Цвет фона круга
+    border-radius: 50%; // Закругление углов для круга
+    border: 2px solid #e2e7f1; // Цвет границы круга
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(66, 86, 122, 1);
+    border-radius: 50%;
+    cursor: pointer;
+
+    @for $i from 0 through $dot-count - 1 {
+        $angle: math.div(360deg, $dot-count) * $i;
+        $x: cos($angle) * $circle-radius;
+        $y: sin($angle) * $circle-radius;
+
+        &:nth-child(#{$i + 1}) {
+            transform: translate(-50%, -50%);
+            left: calc(50% + #{$x});
+            top: calc(50% + #{$y});
+            transition: 0.5s all;
+            font-size: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &:nth-child(#{$i + 1}):hover {
+            width: 56px;
+            height: 56px;
+            background: #fff;
+            border: 1px solid rgba(48, 62, 88, 0.5);
+            transition: 0.5s all;
+
+            color: rgba(66, 86, 122, 1);
+            font-size: 20px;
+        }
+    }
+}
+
+.dot_active {
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border: 1px solid rgba(48, 62, 88, 0.5);
+    transition: 0.5s all;
+    color: rgba(66, 86, 122, 1);
+    font-size: 20px !important;
+}
