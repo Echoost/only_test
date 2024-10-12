@@ -55,49 +55,13 @@ export const Dates = () => {
     }, [activeDates]);
 
     return (
-        <>
+        <div className={classes.wrapper}>
             <div className={classes.blue_date} ref={blueDateRef}>
                 {activeDates[0].year}
             </div>
             <div className={classes.pink_date} ref={pinkDateRef}>
                 {activeDates[activeDates.length - 1].year}
             </div>
-        </>
+        </div>
     );
 };
-
-// import { useSelector } from 'react-redux';
-// import classes from './Dates.module.scss';
-// import { RootState } from '@/app/store';
-// import gsap from 'gsap';
-// import { useEffect, useRef } from 'react';
-
-// export const Dates = () => {
-//     const data = useSelector((state: RootState) => state.data);
-//     const activeDates = data.find(element => element.isActive).info;
-//     const blueDateRef = useRef(null);
-//     const pinkDateRef = useRef(null);
-
-//     useEffect(() => {
-//         gsap.fromTo(blueDateRef.current,
-//             { opacity: 0, y: -20 },
-//             { opacity: 1, y: 0, duration: 1, ease: "power1.out" }
-//         );
-
-//         gsap.fromTo(pinkDateRef.current,
-//             { opacity: 0, y: 20 },
-//             { opacity: 1, y: 0, duration: 1, ease: "power1.out" }
-//         );
-//     }, [activeDates]);
-
-//     return (
-//         <>
-//             <div className={classes.blue_date} ref={blueDateRef}>
-//                 {activeDates[0].year}
-//             </div>
-//             <div className={classes.pink_date} ref={pinkDateRef}>
-//                 {activeDates[activeDates.length - 1].year}
-//             </div>
-//         </>
-//     );
-// };

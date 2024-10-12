@@ -22,6 +22,10 @@ body {
     grid-template-columns: repeat(11, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 8px;
+    @media (max-width: 720px) {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .wrapper {
@@ -40,20 +44,15 @@ body {
     display: flex;
     flex-direction: column;
     height: 83%;
+    @media (max-width: 720px) {
+        padding: 0 20px 13px 20px;
+        justify-content: space-between;
+    }
 }
 
 .header {
     display: flex;
     gap: 78px;
-}
-
-.title {
-    font-weight: 700;
-    font-size: 56px;
-    width: 350px;
-    color: rgba(66, 86, 122, 1);
-    margin-top: 170px;
-    flex: 3;
 }
 
 .divider {
@@ -67,40 +66,7 @@ body {
         rgba(56, 119, 238, 1) 20%,
         rgba(239, 93, 168, 1) 70%
     );
-}
-
-.timeline {
-    text-align: center;
-    margin: 20px;
-    position: relative;
-}
-
-.circle-container {
-    position: relative;
-    width: 300px; /* Ширина контейнера */
-    height: 300px; /* Высота контейнера */
-    margin: 0 auto; /* Центрирование */
-}
-
-.line {
-    position: absolute;
-    background-color: #e2e7f1; /* Цвет линий */
-    z-index: 2;
-}
-
-.vertical {
-    top: 0;
-    width: 1px; /* Ширина вертикальной линии */
-    height: 100%;
-    left: 50%;
-}
-
-.horizontal {
-    height: 1px; /* Высота горизонтальной линии */
-    width: 100%;
-    top: 50%;
-}
-
-.events {
-    margin-top: 20px;
+    @media (max-width: 720px) {
+        display: none;
+    }
 }

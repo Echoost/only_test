@@ -1,23 +1,32 @@
-@use 'sass:math'; // Подключаем модуль math для использования функции деления
+@use 'sass:math';
 
-$circle-radius: 265px; // Радиус круга (половина ширины круга)
-$dot-count: 6; // Количество точек
-
-.circle {
-    position: relative;
-    width: 530px; // Ширина круга
-    height: 530px; // Высота круга
-    background-color: transparent; // Цвет фона круга
-    border-radius: 50%; // Закругление углов для круга
-    border: 2px solid #e2e7f1; // Цвет границы круга
+$circle-radius: 265px;
+$dot-count: 6;
+.wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    @media (max-width: 720px) {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}
+
+.circle {
+    width: 530px;
+    height: 530px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid #e2e7f1;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 4;
+    @media (max-width: 720px) {
+        display: none;
+    }
 }
 
 .dot {
@@ -27,7 +36,7 @@ $dot-count: 6; // Количество точек
     background-color: rgba(66, 86, 122, 1);
     border-radius: 50%;
     cursor: pointer;
-
+    z-index: 5;
     @for $i from 0 through $dot-count - 1 {
         $angle: math.div(360deg, $dot-count) * $i;
         $x: cos($angle) * $circle-radius;
@@ -45,8 +54,8 @@ $dot-count: 6; // Количество точек
         }
 
         &:nth-child(#{$i + 1}):hover {
-            width: 56px;
-            height: 56px;
+            width: 56px !important;
+            height: 56px !important;
             background: #fff;
             border: 1px solid rgba(48, 62, 88, 0.5);
             transition: 0.5s all;
@@ -54,6 +63,9 @@ $dot-count: 6; // Количество точек
             color: rgba(66, 86, 122, 1);
             font-size: 20px;
         }
+    }
+    @media (max-width: 720px) {
+        display: none;
     }
 }
 
@@ -65,4 +77,17 @@ $dot-count: 6; // Количество точек
     transition: 0.5s all;
     color: rgba(66, 86, 122, 1);
     font-size: 20px !important;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    left: 85%;
+    color: rgba(66, 86, 122, 1);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    @media (max-width: 720px) {
+        display: none;
+    }
 }

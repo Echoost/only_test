@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
 export interface DataItem {
     page: number;
+    info: Info[];
     years: number[];
     text: string[];
     isActive: boolean;
+}
+
+export interface Info {
+    year: number;
+    text: string;
+    id: string;
 }
 
 export interface RootState {
@@ -15,6 +21,7 @@ export interface RootState {
 const initialState = [
     {
         page: 1,
+        title: 'Технологии',
         info: [
             {
                 year: 1980,
@@ -42,6 +49,7 @@ const initialState = [
     },
     {
         page: 2,
+        title: 'Кино',
         info: [
             {
                 year: 1987,
@@ -79,6 +87,7 @@ const initialState = [
     },
     {
         page: 3,
+        title: 'Литература',
         info: [
             {
                 year: 1992,
@@ -116,6 +125,7 @@ const initialState = [
     },
     {
         page: 4,
+        title: 'Театр',
         info: [
             {
                 year: 1999,
@@ -153,6 +163,7 @@ const initialState = [
     },
     {
         page: 5,
+        title: 'Спорт',
         info: [
             {
                 year: 2006,
@@ -200,6 +211,7 @@ const initialState = [
     },
     {
         page: 6,
+        title: 'Новости',
         info: [
             {
                 year: 2015,
@@ -242,18 +254,26 @@ const dataSlice = createSlice({
     initialState,
     reducers: {
         setPage: (state, action: PayloadAction<number>) => {
-            const currentActive = state.find(element => element.isActive);
-            const willActive = state.find(
-                element => element.page === action.payload,
-            );
+            return state.map(element => ({
+                ...element,
+                isActive: element.page === action.payload,
+            }));
+        },
+        updateLocation: (state, action: PayloadAction<number>) => {
+            const selectedIndex = action.payload;
+            const dotCount = state.length;
 
-            if (currentActive && willActive) {
-                currentActive.isActive = false;
-                willActive.isActive = true;
-            }
+            // Создаем новый массив с измененными местоположениями точек
+            const updatedState = state.map((element, i) => ({
+                ...element,
+                page: state[(i + selectedIndex) % dotCount].page,
+            }));
+
+            // Возвращаем обновленное состояние
+            return updatedState;
         },
     },
 });
 
-export const { setPage } = dataSlice.actions;
+export const { setPage, updateLocation } = dataSlice.actions;
 export default dataSlice.reducer;
